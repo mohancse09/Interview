@@ -1,20 +1,47 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="chart-container">
+  <mat-card>
+    <form [formGroup]="chartForm">
+      <mat-grid-list cols="2" rowHeight="2.5rem">
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-select placeholder="Metrics" formControlName="metrics" (selectionChange)="getData()">
+              <mat-option value="Tmax">Tmax (temperature)</mat-option>
+              <mat-option value="Tmin">Tmin (temperature)</mat-option>
+              <mat-option value="Rainfall">Rainfall(mm)</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-select placeholder="Locations" formControlName="locations" (selectionChange)="getData()">
+              <mat-option value="UK">UK</mat-option>
+              <mat-option value="England">England</mat-option>
+              <mat-option value="Scotland">Scotland</mat-option>
+              <mat-option value="Wales">Wales</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-select placeholder="Year From" formControlName="yearFrom" (selectionChange)="getData()">
+              <mat-option [value]="year" *ngFor="let year of years">{{year}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-select placeholder="Year To" formControlName="yearTo" (selectionChange)="getData()">
+              <mat-option [value]="year" *ngFor="let year of years">{{year}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-card>
+  <mat-card>
+    <canvas *ngIf="barChartData.length && yearsValid" baseChart [datasets]="barChartData" [labels]="barChartLabels"
+      [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+    </canvas>
+    <mat-error *ngIf="!yearsValid">Selected years are not valid</mat-error>
+  </mat-card>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
